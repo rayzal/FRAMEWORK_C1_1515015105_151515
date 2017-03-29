@@ -11,19 +11,49 @@ use App\dosen;
 class dosenController extends Controller
 {
     
-    public function awal(){
-    	return "Hello dari dosenController";
+      public function awal()
+    {
+        return view('dosen.awal',['data'=>dosen::all()]);
     }
-    public function tambah(){
-    	return $this->simpan();
+    public function tambah()
+    {
+        return view('dosen.tambah');
     }
-    public function simpan(){
-    	$dosen = new dosen();
-    	$dosen ->nama = 'dr.Jon doe,M.Kom,MIPD';
-    	$dosen ->nip = '19961010 15150105';
-    	$dosen ->alamat = 'Jl. Biawan';
-    	$dosen ->pengguna_id = '1';
-    	$dosen ->save();
-    	return "data dengan nama($dosen->nama) telah disimpan";
+    public function simpan(Request $input)
+    {
+        $dosen = new dosen;
+        $dosen -> nama = $input->nama;
+        $dosen -> nip = $input->nip;
+        $dosen -> alamat = $input->alamat;
+        $dosen -> pengguna_id = $input->pengguna_id;
+     $informasi = $dosen ->save()?'Berhasil simpan data': 'Gagal simpan data';
+        return redirect('dosen')->with(['informasi'=>$informasi]);
     }
+    public function edit($id){
+        $dosen = dosen::find($id);
+        return view('dosen.edit')->with(array('dosen'=>$dosen));
+          }
+    
+    public function lihat($id)
+    {
+        $dosen = dosen::find($id);
+         return view('dosen.lihat')->with(array('dosen'=>$dosen));      
+}
+    public  function update($id, Request $input){
+        $dosen = dosen::find($id);
+        
+        $dosen = new dosen;
+        $dosen -> nama = $input->nama;
+        $dosen -> nip = $input->nip;
+        $dosen -> alamat = $input->alamat;
+        $dosen -> pengguna_id = $input->pengguna_id;
+     $informasi = $dosen ->save()?'Berhasil update data': 'Gagal update data';
+        return redirect('dosen')->with(['informasi'=>$informasi]);
+}
+  public function hapus($id){
+        $dosen = dosen::find($id);
+       
+     $informasi = $dosen ->delete()?'Berhasil hapus data': 'Gagal hapus data';
+        return redirect('dosen')->with(['informasi'=>$informasi]);
+}
 }

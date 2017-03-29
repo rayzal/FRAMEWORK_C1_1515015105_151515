@@ -7,6 +7,11 @@
  </strong>
  </div>
 <table class="table">
+<tr>
+ 		<td>ID</td>
+ 		<td>:</td>
+ 		<td>{{ $pengguna->id }}</td>
+ 	</tr>
  	<tr>
  		<td>Username</td>
  		<td>:</td>

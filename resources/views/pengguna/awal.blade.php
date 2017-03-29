@@ -11,6 +11,7 @@
      <thead>
          <tr>
              <th>No.</th>
+             <th>Id_Pengguna</th>
              <th>Username</th>
              <th>Password</th>
              <th>Aksi</th>
@@ -21,6 +22,7 @@
          @foreach ($data as $pengguna)
          <tr>
              <td>{{$x++}}</td>
+             <td>{{$pengguna->id or 'id kosong'}}</td>
               <td>{{$pengguna->username or 'username kosong'}}</td>
                <td>{{$pengguna->password or 'password kosong'}}</td>
                <td>
