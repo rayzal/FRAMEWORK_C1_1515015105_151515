@@ -23,10 +23,17 @@
  		<td>{{$mahasiswa->alamat}}</td>
  	</tr>
  	<tr>
- 		<td>Pengguna_Id</td>
+ 		<td>Username</td>
  		<td>:</td>
- 		<td>{{$mahasiswa->pengguna_id}}</td>
+ 		<td>{{$mahasiswa->pengguna->username}}</td>
  	</tr>
+ 	<tr>
+ 	 	<td>Password</td>
+ 		<td>:</td>
+ 		<td>{{$mahasiswa->pengguna->password}}</td>
+ 	</tr>
+ 	<tr>
+ 
  		<tr>
  		<td class="col-xs-4">Dibuat tanggal</td>
  		<td class="col-xs-1">:</td>

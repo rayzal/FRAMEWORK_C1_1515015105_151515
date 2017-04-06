@@ -8,25 +8,34 @@ use App\Http\Requests;
 
 use App\mahasiswa;
 
-class mahasiswaController extends Controller
-{
+use App\Pengguna;
+
+class MahasiswaController extends Controller
+{  protected $informasi = 'Gagal melakukan aksi';
     public function awal()
-    {
-        return view('mahasiswa.awal',['data'=>mahasiswa::all()]);
+    {   
+        $semuaMahasiswa=mahasiswa::all();
+        return view('mahasiswa.awal', compact('semuaMahasiswa'));
     }
     public function tambah()
     {
         return view('mahasiswa.tambah');
     }
     public function simpan(Request $input)
-    {
+    {   
+        $pengguna = new Pengguna($input->only('username','password'));
+        if ($pengguna->save()){
         $mahasiswa = new mahasiswa;
         $mahasiswa -> nama = $input->nama;
         $mahasiswa -> nim = $input->nim;
         $mahasiswa -> alamat = $input->alamat;
-        $mahasiswa -> pengguna_id = $input->pengguna_id;
-     $informasi = $mahasiswa ->save()?'Berhasil simpan data': 'Gagal simpan data';
-        return redirect('mahasiswa')->with(['informasi'=>$informasi]);
+        // $mahasiswa -> pengguna_id = $input->pengguna_id;
+        if ($pengguna->mahasiswa()->save($mahasiswa))
+            $this->informasi='Berhasil simpan data';
+            }
+        
+     // $informasi = $mahasiswa ->save()?'Berhasil simpan data': 'Gagal simpan data';
+        return redirect('mahasiswa')->with(['informasi'=>$this->informasi]);
     }
     public function edit($id){
         $mahasiswa = mahasiswa::find($id);
@@ -40,19 +49,27 @@ class mahasiswaController extends Controller
 }
     public  function update($id, Request $input){
         $mahasiswa = mahasiswa::find($id);
-        
-        $mahasiswa = new mahasiswa;
         $mahasiswa -> nama = $input->nama;
         $mahasiswa -> nim = $input->nim;
         $mahasiswa -> alamat = $input->alamat;
-        $mahasiswa -> pengguna_id = $input->pengguna_id;
-     $informasi = $mahasiswa ->save()?'Berhasil update data': 'Gagal update data';
-        return redirect('mahasiswa')->with(['informasi'=>$informasi]);
+        $mahasiswa->save();
+           if (!is_null($input->username)){
+            $pengguna=$mahasiswa->pengguna->fill($input->only('username'));
+           if (!empty($input->password)) $pengguna->password=$input->password;
+        if ($pengguna->save()) $this->informasi='Berhasil simpan data';
+    }else {
+            $this->informasi='Gagal simpan data';
+        }
+     // $informasi = $mahasiswa ->save()?'Berhasil update data': 'Gagal update data';
+        return redirect('mahasiswa')->with(['informasi'=>$this->informasi]);
 }
   public function hapus($id){
         $mahasiswa = mahasiswa::find($id);
+        if ($mahasiswa->pengguna()->delete()){
+            if ($mahasiswa->delete())$this->informasi='Berhasil hapus data';
+        }
        
-     $informasi = $mahasiswa ->delete()?'Berhasil hapus data': 'Gagal hapus data';
-        return redirect('mahasiswa')->with(['informasi'=>$informasi]);
+     // $informasi = $mahasiswa ->delete()?'Berhasil hapus data': 'Gagal hapus data';
+        return redirect('mahasiswa')->with(['informasi'=>$this->informasi]);
 }
 }

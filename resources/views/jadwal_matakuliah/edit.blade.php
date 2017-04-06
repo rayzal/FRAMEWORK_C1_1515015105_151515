@@ -1,4 +1,3 @@
-
 @extends('master')
 @section('container')
 <div class="panel panel-info">
@@ -6,9 +5,9 @@
 
  <strong><a href="{{url('jadwal_matakuliah')}}">
    <i class="fa text-default fa-chevron-left"></i>
- </a>Perbaharui data jadwal_matakuliah</strong>
+ </a>Perbaharui data jadwal Mahasiswa</strong>
  </div>
- {!! Form::model($jadwal_matakuliah,['url'=>'jadwal_matakuliah/edit/'.$jadwal_matakuliah->id,'class'=>'form-horizontal']) !!}
+ {!! Form::model($jadwalmatakuliah,['url'=>'jadwal_matakuliah/edit/'.$jadwal_matakuliah->id,'class'=>'form-horizontal']) !!}
 @include('jadwal_matakuliah.Form')
 <div style="width:100%;text-align:right;">
 <button class="btn btn-info"><i class="fa fa-save"></i>Perbaharui</button>

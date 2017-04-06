@@ -8,15 +8,21 @@
  </div>
  <table class="table">
  	<tr>
- 		<td>dosen_id</td>
+ 		<td>Nama Dosen</td>
  		<td>:</td>
- 		<td>{{$dosen_matakuliah->dosen_id}}</td>
+ 		<td>{{$dosen_matakuliah->dosen->nama}}</td>
  	</tr>
  		<tr>
- 		<td>matakuliah_id</td>
+ 		<td>NIP Dosen</td>
  		<td>:</td>
- 		<td>{{$dosen_matakuliah->matakuliah_id}}</td>
+ 		<td>{{$dosen_matakuliah->dosen->nip}}</td>
  	</tr>
+ 			<tr>
+ 		<td>Nama Matakuliah</td>
+ 		<td>:</td>
+ 		<td>{{$dosen_matakuliah->matakuliah->title}}</td>
+ 	</tr>
+
  	<tr>
  		<td class="col-xs-4">Dibuat tanggal</td>
  		<td class="col-xs-1">:</td>

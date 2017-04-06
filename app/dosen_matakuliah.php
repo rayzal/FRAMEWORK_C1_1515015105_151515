@@ -27,8 +27,18 @@ class dosen_matakuliah extends Model
     // Fungsi jadwal_matakuliah() harus mempunyai nilai return dari fungsi hasMany() yang ada pada class eloquent
     // pendefinisian ulang pada foreign key (dosen_matakuliah) dengan memasukkan argument tambahan ke fungsi hasMany.
    //  Logikanya : " setiap dosen matakuliah bisa mengikuti banyak jadwal matakuliah "
-       public function jadwal_matakuliah(){
-    	return $this->hasMany(jadwal_matakuliah::class,'dosen_matakuliah');
+    public function jadwal_matakuliah(){
+    	return $this->hasMany(jadwal_matakuliah::class);
     }
-}
 
+public function listDosenDanMatakuliah()
+  {
+    $out = [];
+    foreach ($this->all() as $dsnMtk){
+      $out[$dsnMtk->id] = "{$dsnMtk->dosen->nama}(matakuliah{$dsnMtk->matakuliah->title})";
+    }
+    return $out;
+  }
+
+}
+ 

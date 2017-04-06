@@ -20,9 +20,22 @@ class dosen extends Model
     // Fungsi dosen_matakuliah() harus mempunyai nilai return dari fungsi hasMany() yang ada pada class eloquent
     // pendefinisian ulang pada foreign key (dosen_id) dengan memasukkan argument tambahan ke fungsi hasMany.
     // Logikanya : " setiap dosen memilik satu pengguna_id "
+    // 
    public function dosen_matakuliah(){
        	return $this->hasMany(dosen_matakuliah::class,'dosen_id');
        }
 
-   
+         public function getUsernameAttribute(){
+    return $this->pengguna->username;
+  }
+
+public function listDosenDanNIP()
+  {
+    $out = [];
+    foreach ($this->all() as $dsn){
+      $out[$dsn->id] = "{$dsn->nama}({$dsn->nip})";
+    } 
+    return $out;  
+  }
+  
 }

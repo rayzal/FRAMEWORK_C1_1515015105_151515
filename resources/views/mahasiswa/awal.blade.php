@@ -14,20 +14,20 @@
              <th>No.</th>
              <th>Nama</th>
              <th>Nim</th>
-             <th>Alamat</th>
-             <th>Pengguna_id</th>
+             {{-- <th>Alamat</th> --}}
+            {{--  <th>Pengguna_id</th> --}}
              <th>Aksi</th>
          </tr>
      </thead>
      <tbody>
          <?php $x=1;?>
-         @foreach ($data as $mahasiswa)
+         @foreach ($semuaMahasiswa as $mahasiswa)
          <tr>
              <td>{{$x++}}</td>
               <td>{{$mahasiswa->nama or 'nama kosong'}}</td>
                <td>{{$mahasiswa->nim or 'NIM kosong'}}</td>
-                <td>{{$mahasiswa->alamat or 'Alamat kosong'}}</td>
-               <td>{{$mahasiswa->pengguna_id or 'Pengguna_id kosong'}}</td>
+                {{-- <td>{{$mahasiswa->alamat or 'Alamat kosong'}}</td> --}}
+{{--                <td>{{$mahasiswa->pengguna_id or 'Pengguna_id kosong'}}</td> --}}
                <td>
                <div class="btn-group" role="group">
                <a href="{{url('mahasiswa/edit/'.$mahasiswa->id)}}" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top" title="ubah">
