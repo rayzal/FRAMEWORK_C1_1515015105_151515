@@ -32,14 +32,7 @@ Route::get('berita/{berita?}', function ($berita = "laravel 5") {
 
 
 
-Route::get('dosen','dosenController@awal');
-Route::get('dosen/tambah','dosenController@tambah');
 
-Route::get('dosen_matakuliah','dosen_matakuliahController@awal');
-Route::get('dosen_matakuliah/tambah','dosen_matakuliahController@tambah');
-
-Route::get('jadwal_matakuliah','jadwal_matakuliahController@awal');
-Route::get('jadwal_matakuliah/tambah','jadwal_matakuliahController@tambah');
 
 // Route::get('pengguna/rizal',function() {
 //     	$pengguna = new App\pengguna();
@@ -49,6 +42,54 @@ Route::get('jadwal_matakuliah/tambah','jadwal_matakuliahController@tambah');
 //     	return "data dengan username($pengguna->username) telah disimpan";
     
 // });
+
+
+Route::get('ujiHas','RelationshipRebornController@ujiHas');
+Route::get('ujiDoesntHave','RelationshipRebornController@ujiDoesntHave');
+
+// Route::get('/',function ()
+// {
+// 	return \App\dosen_matakuliah::whereHas('dosen',function ($query){
+// 		$query->where('nama','like','%s%');
+// 	})->with('dosen')->groupBy('dosen_id')->get();
+	
+// });
+
+// Route::get('/',function ()
+// {
+// 	return \App\dosen_matakuliah::whereHas('dosen',function ($query){
+// 		$query->where('nama','like','%s%');
+// 	})
+// 	->orWhereHas('matakuliah',function ($kueri){
+// 		$kueri->where('title','like','%a%');
+// 	})
+// 	->with('dosen')->groupBy('dosen_id')->get();
+// });
+
+// Route::get('/',function (Illuminate\Http\Request $request)
+// {
+// 	echo "ini adalah Request dari method get ".$request->nama;
+	
+// });
+// use Illuminate\Http\Request;
+// Route::get('/',function ()
+// {
+// 	echo Form::open(['url'=>'/']),
+// 	Form::label('nama'),
+// 	Form::text('nama',null),
+// 	Form::submit('kirim'),
+// 	Form::close();
+// });
+
+// Route::post('/', function (Request $request){
+// 	echo "hasil dari form input tadi nama : ".$request->nama;
+// });
+Route::get('/login','SesiController@form');
+Route::post('/login','SesiController@validasi');
+Route::get('/logout','SesiController@logout');
+Route::get('/','SesiController@index');
+Route::group(['middlewere'=>'AutentifikasiUser'], function()
+{
 Route::get('pengguna','PenggunaController@awal');
 Route::get('pengguna/tambah','PenggunaController@tambah');
 Route::get('pengguna/lihat/{pengguna}','PenggunaController@lihat');
@@ -105,3 +146,7 @@ Route::post('jadwal_matakuliah/simpan','jadwal_matakuliahController@simpan');
 Route::get('jadwal_matakuliah/edit/{jadwal_matakuliah}','jadwal_matakuliahController@edit');
 Route::post('jadwal_matakuliah/edit/{jadwal_matakuliah}','jadwal_matakuliahController@update');
 Route::get('jadwal_matakuliah/hapus/{jadwal_matakuliah}','jadwal_matakuliahController@hapus');
+
+
+});
+

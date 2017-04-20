@@ -17,6 +17,14 @@ class ruanganController extends Controller
         return view('ruangan.tambah');
     }
     public function simpan(Request $input){
+
+          // validasi
+         $this->validate($input,[
+            'title'=>'required',
+            
+            ]);
+
+
         $ruangan = new Ruangan;
         $ruangan ->title = $input->title;
         $informasi = $ruangan ->save()?'Berhasil simpan data': 'Gagal simpan data';
